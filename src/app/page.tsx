@@ -5,13 +5,8 @@ import Link from 'next/link';
 export default function AddData() {
 
     return (
-        <>
-            <div className="">
-                <form></form>
-                <button>Submit</button>
-            </div>
-            <Link href="/display-graph">View graph</Link>
-            <Footer>Click me!</Footer>
-        </>
+        <main className='flex items-center justify-center'>
+            <h1>Welcome to my Submission!</h1>
+        </main>
     );
 }

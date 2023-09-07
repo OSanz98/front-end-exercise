@@ -2,26 +2,239 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+/* form content */
+
+.form-no-items {
+    @apply
+        ring-teal-600
+        ring-1
+        text-black
+        px-2
+        rounded-lg
+}
+.form-clear {
+    @apply
+        ring-teal-600
+        ring-1
+        px-2
+        rounded-lg
+        disabled:text-gray-500 disabled:hover:bg-inherit
+        text-black
+        hover:text-white hover:bg-teal-600
+        transition-all    
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.form-submit {
+    @apply
+        bg-teal-600
+        rounded-lg
+        w-8/12
+        max-w-sm
+        px-2
+        text-white
+        hover:bg-teal-600/50
+        transition-all
+        mt-3
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.form-buttons {
+    @apply
+        flex flex-row justify-between items-center mt-2
+}
+
+.user-form {
+    @apply
+        w-full
+        mt-1
+}
+.user-form label {
+    @apply
+        /* mt-3 */
+        mt-2
+}
+
+.form-component {
+    @apply
+        flex
+        flex-col
+        text-start
+}
+
+.form-error-message {
+    @apply
+        text-red-700
+        pt-2
+}
+
+.form-success-message {
+    @apply
+        text-green-700
+        pt-2
+}
+
+
+/* card */
+.card {
+    @apply
+    flex
+    flex-col
+    bg-gray-100 
+    shadow-md rounded-lg 
+    p-6 w-11/12 sm:w-10/12 lg:w-8/12 
+    mt-5
+
+    /* mt-5 mb-5 */
+    /* mt-auto mb-auto */
+}
+
+/* form page */
+.form-content {
+    @apply
+        flex flex-col 
+        items-center justify-center
+        text-center
+}
+
+.form-content h1 {
+    @apply
+    text-4xl font-bold 
+    mb-1
+    /* mb-auto */
+}
+
+.form-content p {
+    @apply
+        mb-1
+        /* mx-auto */
+        text-lg
+}
+
+.form-input {
+    @apply  
+        p-1 border rounded-md
+}
+
+
+
+/* Items View Components */
+.items-view-btn-no-items {
+    @apply
+        text-black
+        ring-1 ring-teal-600
+        px-2 max-w-sm
+        rounded-lg
+}
+
+.items-view-btn-items {
+    @apply
+        bg-teal-600
+        rounded-lg
+        px-2
+        max-w-sm
+        text-white
+        hover:bg-teal-600/50
+        transition-all
+}
+
+.reusable-btn-no-items {
+    @apply
+        text-black
+        ring-1 ring-violet-600
+        w-8/12
+        max-w-sm
+        mt-4
+}
+
+.reusable-btn-items {
+    @apply
+        bg-violet-600
+        rounded-lg
+        px-2
+        text-white
+        hover:bg-violet-600/50
+        transition-all
+        w-8/12
+        max-w-sm
+        mt-4
+}
+
+.divider {
+    @apply
+        ring-1 ring-black w-full
+        mt-4
+}
+
+.items-list {
+    @apply
+        mx-auto my-5
+        px-2 py-2
+}
+
+.items-row {
+    @apply
+    flex w-full flex-row justify-between items-center
+    border-b-2 py-2
+}
+
+.items-btn{
+    @apply
+        px-2
+        rounded-lg
+        text-red-600 ring-1 ring-red-600
+        hover:text-white hover:bg-red-600
+}
+
+
+.go-to-form-page-link{
+    @apply
+        text-blue-600
+        hover:border-b-2 hover:border-b-blue-600/50
+        hover:text-blue-600/50
+        transition-all
+}
+
+.display-graph-page {
+    @apply
+        flex
+        flex-col
+        h-screen
+        bg-gray-100
+        pt-10
+        px-5
+}
+
+.graph_info_card {
+    @apply
+        flex
+        flex-col
+        justify-center
+        items-center
+        ring-1
+        ring-gray-600
+        mt-10
+        mb-10
+}
+
+.graph_info_title {
+    @apply
+        text-4xl
+        pt-5 pb-5
+}
+
+.graph_info_data {
+    @apply
+        flex flex-row
+        justify-between
+        w-full
+        px-10
+}
+
+.graph_info_data_first_col {
+    @apply
+        flex flex-col
+}
+
+.graph_info_data_second_col {
+    @apply
+        flex flex-col
 }
