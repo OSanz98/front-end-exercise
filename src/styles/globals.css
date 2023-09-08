@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 /* form content */
-
 .form-no-items {
     @apply
         ring-teal-600
@@ -49,7 +48,6 @@
 }
 .user-form label {
     @apply
-        /* mt-3 */
         mt-2
 }
 
@@ -82,9 +80,6 @@
     shadow-md rounded-lg 
     p-6 w-11/12 sm:w-10/12 lg:w-8/12 
     mt-5
-
-    /* mt-5 mb-5 */
-    /* mt-auto mb-auto */
 }
 
 /* form page */
@@ -99,13 +94,11 @@
     @apply
     text-4xl font-bold 
     mb-1
-    /* mb-auto */
 }
 
 .form-content p {
     @apply
         mb-1
-        /* mx-auto */
         text-lg
 }
 
@@ -199,6 +192,7 @@
         transition-all
 }
 
+/* Display Graph Page */
 .display-graph-page {
     @apply
         flex
@@ -265,5 +259,21 @@
         hover:text-white hover:bg-violet-600
         mb-2 transition-all
 }
-  
 
+/* Edit Form Page */
+.edit-form-btn {
+    @apply
+        ring-1 px-2 ring-violet-600 text-black rounded-lg
+        hover:text-white hover:bg-violet-600
+}
+
+
+/* Animation settings */
+@layer utilities {
+    .animation-delay-2000 {
+        animation-delay: 2s
+    }
+    .animation-delay-4000 {
+        animation-delay: 4s
+    }
+}

@@ -5,7 +5,9 @@ import ReusableItemBtn from '@/components/ReusableItemBtn'
 import UserForm from '@/components/UserForm'
 
 
-
+/**
+ * Returns and displays a React Component showing a User Form where a user can create and submit a form.
+ */
 export default function UserFormPage() {
     const [message, setMessage] = useState<string>(''); //store status message for form submission responses
     const [formErrors, setFormErrors] = useState<string[]>([]); //store any error messages received from form submission responses
@@ -81,6 +83,7 @@ export default function UserFormPage() {
     // hasData is used to check if a value has been entered in any input field - for clear button.
     const hasData = !!Object.values(formData).join('') || sensorIds.length;
 
+    // Return UserForm page
     return (
         <>  
             <h1>User Form</h1>
@@ -93,7 +96,7 @@ export default function UserFormPage() {
                 <div className='form-error-message'>
                     <p>{message}:</p>
                     {formErrors.map(error => (
-                        <p>{error}</p>
+                        <p key={error}>{error}</p>
                     ))}
                 </div>
             )}

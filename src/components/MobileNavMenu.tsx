@@ -4,21 +4,29 @@ import React, {useState, useRef} from 'react'
 import Link from 'next/link';
 import { useOnClickOutside } from 'usehooks-ts';
 
+/**
+ * Display a side bar if user is on the website on a mobile
+ * @returns React Component
+ */
 export default function MobileNavMenu() {
+    // variables used for component
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const sidebarRef = useRef<HTMLDivElement>(null);
     useOnClickOutside(sidebarRef, (e) => {
         setIsMobileMenuOpen(false);
     });
 
+    // open and close side bar
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     }
 
+    // close side bar
     const closeMenu = () => {
         setIsMobileMenuOpen(false);
     }
 
+    // If user is mobile form display a menu button in the nav bar - if they click on it then display a side bar.
     return (
         <>
             <button

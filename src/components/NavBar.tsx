@@ -5,6 +5,9 @@ import CompanyLogo from './blakbearLogo.png'
 import NavLink from './NavLink'
 import MobileNavMenu from './MobileNavMenu'
 
+/**
+ * Return a React Component that displays a navigation bar
+ */
 export default function Navbar() {
   return(
     <nav className="flex items-center bg-black shadow-lg p-4">

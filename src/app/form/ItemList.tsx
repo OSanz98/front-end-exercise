@@ -5,21 +5,15 @@ import { db, IUserForm } from '../../resources/database.config'
 import { useLiveQuery } from 'dexie-react-hooks';
 import Link from 'next/link';
 
+/**
+ * ItemList returns a React Component showing all current items stored in IndexedDB and allow them to delete items
+ * or edit items - in which case it will direct user to the edit page.
+ */
 export default function ItemList() {
     const allItems = useLiveQuery(() => db.toArray(), []) as IUserForm[] | undefined;
 
     const handleDelete = async (id: number) => {
         await db.delete(id);
-    }
-
-    const CreateLink = (id: number) => {
-        
-        const href = `/form/${id}`
-        return(
-            <Link href={href} className='items-edit-btn'>
-                Edit
-            </Link>
-        )
     }
 
     return (

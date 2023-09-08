@@ -4,6 +4,7 @@ import React from 'react'
 import TagInput from './TagInput'
 import SubmitButton from './SubmitButton'
 
+// UserFormData is used to set out the types for form data
 type UserFormData = {
     batch_name: string,
     temperature: string, 
@@ -11,6 +12,7 @@ type UserFormData = {
     test_date: string
 }
 
+// Props is used to specify the types of all params passed to the component.
 type Props = {
     formData: UserFormData,
     handleFormSubmit: (event: React.FormEvent<HTMLFormElement>) => void,
@@ -19,6 +21,12 @@ type Props = {
     setSensorIds: React.Dispatch<React.SetStateAction<string[]>>
 }
 
+/**
+ * This is a reusable form component which is used throughout the application. It returns a form to allow the user
+ * to create and perform manipulations on items. 
+ * @param formData, handleFormSubmit, handleInputChange, sensorIds, setSensorIds 
+ * @returns React Component
+ */
 export default function UserForm({formData, handleFormSubmit, handleInputChange, sensorIds, setSensorIds}: Props) {
     return (
         <form onSubmit={handleFormSubmit} className="user-form">

@@ -1,6 +1,5 @@
 "use client"
 
-
 import React, { useState } from 'react'
 import Card from '@/components/Card'
 import { ComposedChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Area, Label, ResponsiveContainer } from 'recharts';
@@ -8,10 +7,10 @@ import { db, IUserForm } from '../../resources/database.config'
 import { useLiveQuery } from 'dexie-react-hooks';
 import Link from 'next/link';
 import { updateItem } from '../actions';
-import TagInput from '@/components/TagInput'
 import UserForm from '@/components/UserForm';
 import Footer from '@/components/Footer';
 
+// Setting out the types for any objects used as data for recharts.
 type ChartData = {
     index: number,
     batch_name: string,
@@ -21,11 +20,18 @@ type ChartData = {
     sensor_ids: string[]
 };
 
+/**
+ * This displays a series of graphs and information sections for all items stored on IndexedDB
+ */
 export default function GraphItem() {
+    // variables used for the graphs and information sections.
     const graphItems = useLiveQuery(() => db.toArray(), []) as IUserForm[] | undefined;
     const itemCount = graphItems?.length || 0;
 
-    
+    /**
+     * Returns a Custom tooltip, which is shown when user highlights a point in the graph.
+     * Shows information about the batch data.
+     */
     const CustomTooltip = ({ active, payload }: any) => {
         if (active && payload && payload.length) {
           return (
@@ -40,6 +46,11 @@ export default function GraphItem() {
         return null;
     };
 
+    /**
+     * This function is used to transform the item data into a format that recharts can work with.
+     * @param item - object of interface IUserForm
+     * @returns chart data
+     */
     const transformData = (item: IUserForm): ChartData[] => {
         const data:ChartData[] = [];
         for (let i = 0; i < 10; i++) {
@@ -193,7 +204,7 @@ export default function GraphItem() {
                     <div className='form-error-message text-center'>
                         <p>{message}:</p>
                         {formErrors.map(error => (
-                            <p>{error}</p>
+                            <p key={error}>{error}</p>
                         ))}
                     </div>
                 )}
@@ -215,7 +226,7 @@ export default function GraphItem() {
                         <div className='graph_info_data_col'>
                             <h1>Sensor Ids</h1>
                             {item.sensor_ids.map((sensor) => (
-                                <p>- {sensor}</p>
+                                <p key={sensor}>- {sensor}</p>
                             ))}
                         </div>
                     </div>
@@ -245,7 +256,7 @@ export default function GraphItem() {
                 <div className='flex justify-center text-center h-max'>
                     <Card>
                         <h1 className='text-5xl'>Sorry!</h1>
-                        <p>There isn't any data to show at this point in time.</p>
+                        <p>There is no data to show at this point in time.</p>
                         <div className='flex-row items-center'>
                             <p>Please visit the form page to add items:</p>
                             <Link href='/form'>
