@@ -3,7 +3,6 @@
 import React from 'react'
 import { db, IUserForm } from '../resources/database.config'
 import { useLiveQuery } from 'dexie-react-hooks';
-import { redirect } from 'next/navigation';
 import Link from 'next/link';
 
 export default function ReusableItemBtn({link, btnText} : {link: string, btnText: string}){

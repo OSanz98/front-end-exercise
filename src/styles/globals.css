@@ -172,7 +172,7 @@
 
 .items-row {
     @apply
-    flex w-full flex-row justify-between items-center
+    flex w-full flex-row items-center
     border-b-2 py-2
 }
 
@@ -182,6 +182,12 @@
         rounded-lg
         text-red-600 ring-1 ring-red-600
         hover:text-white hover:bg-red-600
+}
+
+.items-edit-btn {
+    @apply
+        px-2 mr-4 ring-1 ring-violet-600 text-black hover:text-white hover:bg-violet-600
+        rounded-lg
 }
 
 
@@ -197,10 +203,12 @@
     @apply
         flex
         flex-col
-        h-screen
         bg-gray-100
         pt-10
         px-5
+        overflow-auto
+        h-auto
+        max-h-none
 }
 
 .graph_info_card {
@@ -213,6 +221,7 @@
         ring-gray-600
         mt-10
         mb-10
+        transition-all
 }
 
 .graph_info_title {
@@ -229,12 +238,32 @@
         px-10
 }
 
-.graph_info_data_first_col {
+.graph_info_data_col {
     @apply
         flex flex-col
 }
 
-.graph_info_data_second_col {
+
+.graph-cancel-btn{
     @apply
-        flex flex-col
+        mt-2 mb-2
+        px-2
+        text-red-600 ring-1 ring-red-600
+        rounded-lg
+        hover:text-white hover:bg-red-600
+        transition-all
+       
 }
+
+.graph-edit-btn{
+    @apply
+        px-2
+        text-black
+        ring-1
+        rounded-lg
+        ring-violet-600
+        hover:text-white hover:bg-violet-600
+        mb-2 transition-all
+}
+  
+

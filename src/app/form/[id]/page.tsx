@@ -1,7 +1,15 @@
-import React from 'react'
 
-export default function ItemEditor() {
-  return (
-    <div>ItemEditor</div>
+import React from 'react'
+import EditForm from './EditForm';
+import { useRouter } from 'next/router';
+
+export default function ItemEditor({params} : {params: {id: string}}) {
+
+  
+
+  return(
+    <div>
+        <EditForm id={params.id}/>
+    </div>
   )
 }

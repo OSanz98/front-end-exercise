@@ -2,20 +2,28 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import CompanyLogo from './blakbearLogo.png'
+import NavLink from './NavLink'
+import MobileNavMenu from './MobileNavMenu'
 
 export default function Navbar() {
   return(
     <nav className="flex items-center bg-black shadow-lg p-4">
-      <Link href='/' className='ml-10'>
+      <Link href='/' className='ml-10 mr-auto'>
           <Image src={CompanyLogo} alt="BlakBear logo" width={250} quality={100} placeholder='blur' />
       </Link>
       
-      <Link href="/form" className='ml-auto text-white hover:text-white/60 px-4 py-2 inline-block hover:border-b-2 hover:border-white/60 transition-all'>
+      <div className='hidden md:flex'>
+        <NavLink href='/form'>
           Form
-      </Link>
-      <Link href="/display-graph" className='mr-10 text-white hover:text-white/60 px-4 py-2 inline-block hover:border-b-2 hover:border-white/60 transition-all'>
+        </NavLink>
+        <NavLink href='/display-graph'>
           View Graphs
-      </Link>
+        </NavLink>
+      </div>
+      <div className='md:hidden'>
+        <MobileNavMenu />
+      </div>
+      
     </nav>
   )
 }

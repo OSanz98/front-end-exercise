@@ -75,15 +75,19 @@ export default function GraphItem() {
             Math.max(maxTemperature, 10) + 1
         ];
         const allDates = data.map(item => item.date);
+        
+        // Display Responsive Graph showing item data in a suitable format
         return (
             <>
-                <ResponsiveContainer width="100%" height="80%">
+                <ResponsiveContainer width="100%" height={400}>
                     <ComposedChart
                         data={data}
-                        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+                        margin={{ top: 10, right: 30, left: 0, bottom: 15 }}
                     >
                         <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="date" ticks={allDates} label=''/>
+                        <XAxis dataKey="date" ticks={allDates}>
+                            <Label angle={0} offset={-10} position='insideBottom'>Days</Label>
+                        </XAxis>
                         <YAxis yAxisId="left" orientation="left" domain={[0, 10]}>
                             <Label angle={-90} position='insideLeft' style={{fill: '#ff7300'}}>Spoilage</Label>
                         </YAxis>
@@ -101,7 +105,14 @@ export default function GraphItem() {
         );
     }
 
+    /**
+     * Used to render and display the chart information section - including details
+     * about the item.
+     * @param param0 item contains object data
+     * @returns graph information component
+     */
     const GraphInfo: React.FC<{ item: IUserForm }> = ({ item })=> {
+        // State variables used for the GraphInfo component
         const [editMode, setEditMode] = useState(false);
         const [sensorIds, setSensorIds] = useState<string[]>(item.sensor_ids); //store all sensor ids entered into form
         const [formData, setFormData] = useState({
@@ -113,6 +124,12 @@ export default function GraphItem() {
         const [message, setMessage] = useState('');
         const [formErrors, setFormErrors] = useState<string[]>([]);
 
+        /**
+         * Called when user clicks submit button on the form.
+         * Call updateItem to try to update the item, and check response returned.
+         * If successful, hide form and show info div again and reset message and form errors.
+         * @param e react form event
+         */
         const handleFormSubmit = async (e: React.FormEvent) => {
             e.preventDefault();
             const form = new FormData();
@@ -128,7 +145,6 @@ export default function GraphItem() {
                 if(res.body.errors) {
                     setFormErrors(res.body.errors);
                 }
-                
             } else {
                 setEditMode(false);
                 setMessage('');
@@ -136,6 +152,23 @@ export default function GraphItem() {
             }
             
         };
+
+        /**
+         * resetFields is used to reset the form values to what they should be.
+         * Also resets any other variables such as messages, error messages etc.
+         */
+        const resetFields = () => {
+            setEditMode(!editMode)
+            setSensorIds(item.sensor_ids);
+            setMessage('');
+            setFormErrors([]);
+            setFormData({
+                batch_name: item.batch_name,
+                temperature: item.temperature.toString(),
+                spoilage: item.spoilage.toString(),
+                test_date: item.test_date
+            })
+        }
 
         /**
          * When a user enters a value or edits a value on a field,
@@ -155,27 +188,31 @@ export default function GraphItem() {
         return(
             <div className='graph_info_card'>
                 <h1 className='graph_info_title'>{item.batch_name}</h1>
+                {/* Display error message above form if there are any */}
+                {message === 'Validation errors' && formErrors !== null && (
+                    <div className='form-error-message text-center'>
+                        <p>{message}:</p>
+                        {formErrors.map(error => (
+                            <p>{error}</p>
+                        ))}
+                    </div>
+                )}
+                
+                
                 {editMode ? (
-                    // {message === 'Validation errors' && formErrors !== null && (
-                    //     <div className='form-error-message'>
-                    //         <p>{message}:</p>
-                    //         {formErrors.map(error => (
-                    //             <p>{error}</p>
-                    //         ))}
-                    //     </div>
-                    // )}
+                    // If in edit mode then display form for item
                     <div className='flex flex-col items-center justify-center text-center'>
                         <UserForm formData={formData} handleFormSubmit={handleFormSubmit} handleInputChange={handleInputChange} sensorIds={sensorIds} setSensorIds={setSensorIds}/>
                     </div>
-                    
                 ) : (
+                    // if not in edit mode just display item information
                     <div className='graph_info_data'>
-                        <div className='graph_info_data_first_col'>
+                        <div className='graph_info_data_col'>
                             <span>Day: {item.test_date}</span>
-                            <span>Spoilage: {item.spoilage}</span>
-                            <span>Temperature: {item.temperature}</span>
+                            <span>Spoilage: {item.spoilage.join(', ')}</span>
+                            <span>Temperature: {item.temperature.join(', ')}</span>
                         </div>
-                        <div className='graph_info_data_second_col'>
+                        <div className='graph_info_data_col'>
                             <h1>Sensor Ids</h1>
                             {item.sensor_ids.map((sensor) => (
                                 <p>- {sensor}</p>
@@ -183,22 +220,29 @@ export default function GraphItem() {
                         </div>
                     </div>
                 )}
-                <button onClick={() => setEditMode(!editMode)}>{editMode ? "Cancel" : "Edit"}</button>
+                <button className={editMode ? 'graph-cancel-btn' : 'graph-edit-btn'} onClick={resetFields}>{editMode ? "Cancel" : "Edit"}</button>
             </div>
         )
     };
     
     return (
         <main>
+            {/* If there are items to show in graphs then create graph and info for each */}
             {itemCount > 0 && graphItems && (
-                <div className='display-graph-page'>
-                    {graphItems.map((item, idx) => (
-                        <SingleGraph key={idx} item={item} />
-                    ))}
-                </div>
+                <>
+                    <div className='display-graph-page'>
+                        {graphItems.map((item, idx) => (
+                            <SingleGraph key={idx} item={item} />
+                        ))}
+                        
+                    </div>
+                    <Footer styling={{ position: 'relative' }}>Click me!</Footer>
+                </>
+                
             )}
+            {/* If there aren't any items then display a card with text stating no items to show */}
             {itemCount === 0 && (
-                <div className='flex justify-center text-center'>
+                <div className='flex justify-center text-center h-max'>
                     <Card>
                         <h1 className='text-5xl'>Sorry!</h1>
                         <p>There isn't any data to show at this point in time.</p>
@@ -209,9 +253,9 @@ export default function GraphItem() {
                             </Link>
                         </div>
                     </Card>
+                    <Footer styling={{ position: 'absolute' }}>Click me!</Footer>
                 </div>
             )}
-            <Footer>Click me!</Footer>
         </main>
     )
 }
